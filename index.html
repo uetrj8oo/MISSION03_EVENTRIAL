@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVENGERS E-GAME 2026 - MISSION 03: EVENTRIAL</title>
+    <!-- Tailwind CSS CDN -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Lexend', 'sans-serif'],
+                        digital: ['UTM Bitsumishi Pro', 'sans-serif'],
+                        hero: ['UTM Bitsumishi Pro', 'sans-serif'],
+                        mono: ['UTM Bitsumishi Pro', 'monospace'],
+                    },
+                    colors: {
+                        cosmicBg: '#050716',
+                        cosmicCard: '#0b0f28',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 20s linear infinite',
+                        'float': 'floatAnim 6s ease-in-out infinite',
+                        'float-reverse': 'floatAnimRev 7s ease-in-out infinite',
+                        'star-twinkle': 'twinkle 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        floatAnim: {
+                            '0%, 100%': {transform: 'translateY(0px) rotate(0deg)'},
+                            '50%': {transform: 'translateY(-12px) rotate(3deg)'},
+                        },
+                        floatAnimRev: {
+                            '0%, 100%': {transform: 'translateY(0px) rotate(0deg)'},
+                            '50%': {transform: 'translateY(10px) rotate(-4deg)'},
+                        },
+                        twinkle: {
+                            '0%, 100%': {opacity: '0.3'},
+                            '50%': {opacity: '1'},
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter, Orbitron (digital numbers), Russo One & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=Russo+One&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- App logic remains inline so the project only needs these two files. -->
+</head>
+
+<body
+    class="bg-cosmicBg text-slate-100 font-sans min-h-screen flex flex-col justify-between select-none overflow-x-hidden relative">
+
+    <!-- BACKGROUND VECTOR GRAPHICS (PLANETS, STARFIELD & ENERGY RIBBONS) -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+
+        <!-- Starfield & Cosmic Nebula Effect -->
+        <div
+            class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/30 via-cosmicBg to-cosmicBg">
+        </div>
+        <div class="absolute top-10 left-1/4 w-1 h-1 bg-white rounded-full animate-star-twinkle"></div>
+        <div class="absolute top-1/3 right-1/5 w-2 h-2 bg-cyan-300 rounded-full animate-star-twinkle"
+            style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-pink-400 rounded-full animate-star-twinkle"
+            style="animation-delay: 1.5s;"></div>
+        <div class="absolute top-2/3 right-1/3 w-1 h-1 bg-yellow-200 rounded-full animate-star-twinkle"
+            style="animation-delay: 0.5s;"></div>
+
+
+        <!-- ENERGY RIBBON TRAILS -->
+        <svg class="energy-ribbons absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+                <!-- Vàng -->
+                <linearGradient id="ribbonYellow">
+                    <stop offset="0%" stop-color="#ffd600" stop-opacity="0.1" />
+                    <stop offset="50%" stop-color="#ffea00" stop-opacity="1" />
+                    <stop offset="100%" stop-color="#ffab00" stop-opacity="0.2" />
+                </linearGradient>
+
+                <!-- Xanh lá -->
+                <linearGradient id="ribbonGreen">
+                    <stop offset="0%" stop-color="#00e676" stop-opacity="0.1" />
+                    <stop offset="50%" stop-color="#69f0ae" stop-opacity="1" />
+                    <stop offset="100%" stop-color="#00c853" stop-opacity="0.2" />
+                </linearGradient>
+
+                <!-- Xanh dương -->
+                <linearGradient id="ribbonBlue">
+                    <stop offset="0%" stop-color="#00b0ff" stop-opacity="0.1" />
+                    <stop offset="50%" stop-color="#40c4ff" stop-opacity="1" />
+                    <stop offset="100%" stop-color="#2979ff" stop-opacity="0.2" />
+                </linearGradient>
+
+                <!-- Hiệu ứng phát sáng -->
+                <filter id="ribbonGlow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="6" result="blur" />
+                    <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+
+            <!-- VÀNG: chạy chéo qua toàn màn hình -->
+            <path class="ribbon-glow ribbon-yellow" d="M -100 100 C 250 50, 350 650, 700 450 S 1150 100, 1540 650"
+                pathLength="1000" />
+
+            <!-- XANH LÁ: phủ cả hai bên -->
+            <path class="ribbon-glow ribbon-green" d="M -100 750 C 200 350, 500 950, 800 550 S 1200 250, 1540 100"
+                pathLength="1000" />
+
+            <!-- XANH DƯƠNG: uốn lượn từ dưới lên trên -->
+            <path class="ribbon-glow ribbon-blue" d="M 250 1000 C 400 650, 700 800, 850 450 S 1150 300, 1500 -100"
+                pathLength="1000" />
+        </svg>
+
+        <!-- 4 CORNER PLANETS -->
+        <!-- Top-Left: Magenta Crater Planet -->
+        <div class="absolute top-4 left-4 md:top-8 md:left-8 w-20 h-20 md:w-28 md:h-28 animate-float">
+            <div
+                class="w-full h-full rounded-full bg-gradient-to-br from-pink-400 via-rose-600 to-purple-900 relative shadow-[0_0_35px_rgba(236,72,153,0.6)]">
+                <div class="absolute top-3 left-4 w-5 h-5 bg-pink-900/40 rounded-full border border-pink-400/30"></div>
+                <div class="absolute bottom-4 right-5 w-7 h-7 bg-pink-900/40 rounded-full border border-pink-400/30">
+                </div>
+                <div class="absolute top-10 right-3 w-3 h-3 bg-pink-900/40 rounded-full border border-pink-400/30">
+                </div>
+            </div>
+        </div>
+
+        <!-- Top-Right: Lime Green Spiral Planet -->
+        <div class="absolute top-4 right-4 md:top-8 md:right-8 w-16 h-16 md:w-24 md:h-24 animate-float-reverse">
+            <div
+                class="w-full h-full rounded-full bg-gradient-to-br from-lime-300 via-emerald-500 to-teal-900 relative shadow-[0_0_30px_rgba(132,204,22,0.6)] flex items-center justify-center">
+                <div
+                    class="w-3/4 h-3/4 rounded-full border-2 border-lime-200/50 border-t-transparent animate-spin-slow">
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom-Left: Yellow Bright Moon/Planet -->
+        <div class="absolute bottom-12 left-4 md:bottom-16 md:left-8 w-18 h-18 md:w-24 md:h-24 animate-float-reverse">
+            <div
+                class="w-full h-full rounded-full bg-gradient-to-tr from-amber-500 via-yellow-300 to-amber-100 relative shadow-[0_0_40px_rgba(245,158,11,0.7)]">
+                <div class="absolute top-4 left-5 w-4 h-4 bg-amber-700/30 rounded-full"></div>
+                <div class="absolute bottom-5 right-4 w-6 h-6 bg-amber-700/30 rounded-full"></div>
+            </div>
+        </div>
+
+        <!-- Bottom-Right: Purple Striped Gas Giant Planet -->
+        <div class="absolute bottom-12 right-4 md:bottom-16 md:right-8 w-22 h-22 md:w-32 md:h-32 animate-float">
+            <div
+                class="w-full h-full rounded-full bg-gradient-to-br from-indigo-400 via-purple-600 to-slate-900 relative shadow-[0_0_35px_rgba(168,85,247,0.6)] overflow-hidden">
+                <div class="absolute top-3 w-full h-2 bg-purple-300/20 transform -rotate-12"></div>
+                <div class="absolute top-8 w-full h-4 bg-indigo-300/20 transform -rotate-12"></div>
+                <div class="absolute bottom-6 w-full h-3 bg-purple-300/20 transform -rotate-12"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- TOP HEADER - EVENGERS POSTER TITLE & EVENT INFO -->
+    <header class="glass-panel sticky top-0 z-40 border-b border-indigo-900/60 px-4 py-2.5 shadow-2xl">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+
+            <!-- Hero Poster Logo Header -->
+            <div class="flex items-center space-x-3">
+                <div class="relative flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-tr from-yellow-400 to-amber-600 flex items-center justify-center border-2 border-amber-200 shadow-[0_0_15px_rgba(245,158,11,0.8)] relative z-10">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center space-x-3">
+                        <img src="./resources/logo.png" alt="EVENGERS E-GAME"
+                            class="h-16 w-auto max-w-[350px] object-contain" />
+                    </div>
+                </div>
+
+                <!-- Team Names Input Controls -->
+                <div
+                    class="flex items-center gap-2 bg-slate-950/80 p-1.5 rounded-xl border border-indigo-900/80 shadow-inner">
+                    <div
+                        class="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-cyan-950/70 border border-cyan-700/60">
+                        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                        <span class="text-xs font-black text-cyan-400">ĐỘI A:</span>
+                        <input type="text" id="teamAInput" value="Đội A - Horizon"
+                            class="bg-transparent text-xs text-white font-bold focus:outline-none w-28 md:w-36 focus:border-b focus:border-cyan-400 transition-all"
+                            placeholder="Tên Đội A..." oninput="updateTeamNames()" />
+                    </div>
+                    <span class="text-amber-400 font-hero text-xs">VS</span>
+                    <div
+                        class="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-pink-950/70 border border-pink-700/60">
+                        <span class="w-2.5 h-2.5 rounded-full bg-pink-400 animate-pulse"></span>
+                        <span class="text-xs font-black text-pink-400">ĐỘI B:</span>
+                        <input type="text" id="teamBInput" value="Đội B - Spark"
+                            class="bg-transparent text-xs text-white font-bold focus:outline-none w-28 md:w-36 focus:border-b focus:border-pink-400 transition-all"
+                            placeholder="Tên Đội B..." oninput="updateTeamNames()" />
+                    </div>
+
+                </div>
+
+                <!-- Action Tools -->
+                <div class="flex items-center space-x-2">
+                    <!-- Audio Toggle -->
+                    <button id="soundBtn" onclick="toggleSound()" title="Tắt/Bật Âm Thanh"
+                        class="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 transition border border-amber-500/40 shadow-lg">
+                        <i class="fa-solid fa-volume-high text-sm" id="soundIcon"></i>
+                    </button>
+                    <!-- Fullscreen -->
+                    <button onclick="toggleFullscreen()" title="Toàn Màn Hình (F)"
+                        class="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white transition border border-slate-700">
+                        <i class="fa-solid fa-expand text-sm"></i>
+                    </button>
+                </div>
+            </div>
+    </header>
+
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="max-w-7xl mx-auto w-full px-4 py-4 flex-1 flex flex-col gap-5 relative z-10">
+
+        <!-- TOP CENTRAL GLOWING STAR CRYSTAL BADGE -->
+        <div class="flex flex-col items-center justify-center my-1 relative">
+            <div class="relative flex items-center justify-center">
+                <div class="w-16 h-16 rounded-full bg-amber-500/20 blur-md absolute"></div>
+                <svg class="w-10 h-10 text-yellow-300 relative z-10 filter drop-shadow-[0_0_20px_rgba(254,240,138,1)] animate-pulse"
+                    viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0L15.5 8.5L24 12L15.5 15.5L12 24L8.5 15.5L0 12L8.5 8.5L12 0Z" />
+                </svg>
+            </div>
+            <div class="topic-title text-[18px] font-bold text-amber-300/90 tracking-widest uppercase mt-1 text-center">
+                CHỦ ĐỀ: "VÌ SAO NÊN LỰA CHỌN CHƯƠNG TRÌNH CỦA ĐỘI CHÚNG TÔI THAY VÌ CHƯƠNG TRÌNH CỦA ĐỘI ĐỐI THỦ?"
+            </div>
+        </div>
+
+
+        <!-- STAGE STEPPER NAVIGATION (6 ROUNDS: 1A, 1B, 2A, 2B, 3A, 3B) -->
+        <section class="glass-panel p-2 md:p-3 rounded-2xl border border-indigo-900/80">
+            <div class="flex items-center justify-between gap-2 overflow-x-auto pb-1" id="stepperContainer">
+
+                <!-- Stage 1A -->
+                <button onclick="switchStage(0)" id="stepBtn-0"
+                    class="stage-step flex-1 min-w-[110px] p-2.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:bg-slate-800 transition text-left relative overflow-hidden group">
+                    <div class="text-[9px] font-black text-cyan-400 uppercase tracking-wider">Lượt 1</div>
+                    <div class="text-xs font-black text-slate-200 group-hover:text-cyan-300 truncate" id="stepName-1A">
+                        1A. Đội A</div>
+                    <div class="text-[10px] font-mono text-slate-400 mt-0.5"><i
+                            class="fa-regular fa-clock mr-1"></i>03:00</div>
+                </button>
+
+                <!-- Stage 1B -->
+                <button onclick="switchStage(1)" id="stepBtn-1"
+                    class="stage-step flex-1 min-w-[110px] p-2.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:bg-slate-800 transition text-left relative overflow-hidden group">
+                    <div class="text-[9px] font-black text-pink-400 uppercase tracking-wider">Lượt 1</div>
+                    <div class="text-xs font-black text-slate-200 group-hover:text-pink-300 truncate" id="stepName-1B">
+                        1B. Đội B</div>
+                    <div class="text-[10px] font-mono text-slate-400 mt-0.5"><i
+                            class="fa-regular fa-clock mr-1"></i>03:00</div>
+                </button>
+
+                <!-- Stage 2A (Chess Clock) -->
+                <button onclick="switchStage(2)" id="stepBtn-2"
+                    class="stage-step flex-1 min-w-[135px] p-2.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:bg-slate-800 transition text-left relative overflow-hidden group">
+                    <div
+                        class="text-[9px] font-black text-amber-400 uppercase tracking-wider flex items-center justify-between">
+                        <span>Lượt 2A</span>
+                    </div>
+                    <div class="text-xs font-black text-slate-200 group-hover:text-amber-300 truncate" id="stepName-2A">
+                        2A. B hỏi ➔ A đáp</div>
+                    <div class="text-[10px] font-mono text-slate-400 mt-0.5"><i
+                            class="fa-solid fa-arrows-rotate mr-1"></i>2m : 4m</div>
+                </button>
+
+                <!-- Stage 2B (Chess Clock) -->
+                <button onclick="switchStage(3)" id="stepBtn-3"
+                    class="stage-step flex-1 min-w-[135px] p-2.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:bg-slate-800 transition text-left relative overflow-hidden group">
+                    <div
+                        class="text-[9px] font-black text-amber-400 uppercase tracking-wider flex items-center justify-between">
+                        <span>Lượt 2B</span>
+                    </div>
+                    <div class="text-xs font-black text-slate-200 group-hover:text-amber-300 truncate" id="stepName-2B">
+                        2B. A hỏi ➔ B đáp</div>
+                    <div class="text-[10px] font-mono text-slate-400 mt-0.5"><i
+                            class="fa-solid fa-arrows-rotate mr-1"></i>2m : 4m</div>
+                </button>
+
+                <!-- Stage 3A -->
+                <button onclick="switchStage(4)" id="stepBtn-4"
+                    class="stage-step flex-1 min-w-[110px] p-2.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:bg-slate-800 transition text-left relative overflow-hidden group">
+                    <div class="text-[9px] font-black text-cyan-400 uppercase tracking-wider">Lượt 3</div>
+                    <div class="text-xs font-black text-slate-200 group-hover:text-cyan-300 truncate" id="stepName-3A">
+                        3A. Đội A</div>
+                    <div class="text-[10px] font-mono text-slate-400 mt-0.5"><i
+                            class="fa-regular fa-clock mr-1"></i>03:00</div>
+                </button>
+
+                <!-- Stage 3B -->
+                <button onclick="switchStage(5)" id="stepBtn-5"
+                    class="stage-step flex-1 min-w-[110px] p-2.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:bg-slate-800 transition text-left relative overflow-hidden group">
+                    <div class="text-[9px] font-black text-pink-400 uppercase tracking-wider">Lượt 3</div>
+                    <div class="text-xs font-black text-slate-200 group-hover:text-pink-300 truncate" id="stepName-3B">
+                        3B. Đội B</div>
+                    <div class="text-[10px] font-mono text-slate-400 mt-0.5"><i
+                            class="fa-regular fa-clock mr-1"></i>03:00</div>
+                </button>
+
+            </div>
+        </section>
+
+
+        <!-- VIEW 1: SINGLE CIRCULAR CLOCK (Stages 1A, 1B, 3A, 3B) -->
+        <section id="singleTimerView"
+            class="glass-panel p-6 md:p-8 rounded-3xl border border-indigo-900/80 flex flex-col items-center justify-between min-h-[440px] shadow-2xl relative overflow-hidden">
+
+            <!-- Stage Info Header -->
+            <div
+                class="w-full flex flex-col sm:flex-row items-center justify-between border-b border-indigo-950/80 pb-3 gap-2">
+                <div class="flex items-center space-x-3">
+                    <span id="singleStageBadge"
+                        class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-indigo-950 text-indigo-300 border border-indigo-700">
+                        LƯỢT THI
+                    </span>
+                    <h2 id="singleStageTitle" class="text-lg md:text-2xl font-black text-white">
+                        Tiêu Đề Lượt
+                    </h2>
+                </div>
+                <div class="text-xs text-amber-300/90 font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-users text-amber-400"></i>
+                    <span id="singleStageSpeakerInfo" class="flex-1 min-w-0 text-center">
+                        2 thành viên đại diện
+                    </span>
+                </div>
+            </div>
+
+            <!-- CENTRAL SMOOTH CIRCULAR CLOCK FRAME (MỊN ĐẸP, BỎ VÂN TAM GIÁC) -->
+            <div class="my-6 relative flex flex-col items-center justify-center">
+
+                <!-- Ambient Backdrop Glow Halo -->
+                <div
+                    class="absolute w-[260px] h-[260px] sm:w-[310px] sm:h-[310px] md:w-[350px] md:h-[350px] rounded-full bg-indigo-500/10 blur-2xl pointer-events-none">
+                </div>
+
+                <!-- Circular Clock Container -->
+                <div class="relative w-[240px] h-[240px] sm:w-[290px] sm:h-[290px] md:w-[330px] md:h-[330px] flex items-center justify-center rounded-full p-2 bg-cosmicBg/90 border-4 border-indigo-900/80 shadow-[0_0_50px_rgba(6,182,212,0.3)] transition-all duration-300"
+                    id="singleCircleFrame">
+
+                    <!-- SVG Circular Progress Ring -->
+                    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 260 260">
+                        <!-- Inner track -->
+                        <circle cx="130" cy="130" r="115" stroke="rgba(30, 41, 59, 0.8)" stroke-width="14"
+                            fill="transparent" />
+                        <!-- Dynamic Smooth Progress Circle -->
+                        <circle id="singleProgressRing" class="progress-ring-circle" cx="130" cy="130" r="115"
+                            stroke="#06b6d4" stroke-width="14" stroke-linecap="round" fill="transparent"
+                            stroke-dasharray="722.56" stroke-dashoffset="0" />
+                    </svg>
+
+                    <!-- Center Display Text inside Circle -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+                        <div id="singleActiveTeamBadge"
+                            class="mb-1 px-3 py-0.5 rounded-full text-[11px] font-black tracking-wider text-cyan-300 bg-cyan-950/80 border border-cyan-700 uppercase hidden">
+                            ĐỘI A TRÌNH BÀY
+                        </div>
+
+                        <!-- Digital LED Clock -->
+                        <div id="singleTimerDisplay"
+                            class="font-digital text-5xl sm:text-6xl md:text-7xl font-black text-cyan-400 digital-glow-cyan tracking-wider">
+                            03:00
+                        </div>
+
+                        <div id="singleStatusSubtext"
+                            class="text-xs font-bold text-slate-400 mt-2 uppercase tracking-widest">
+                            SẴN SÀNG
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Single Clock Action Controls -->
+            <div class="w-full flex flex-wrap items-center justify-center gap-3 pt-3 border-t border-indigo-950/80">
+                <button onclick="prevStage()"
+                    class="px-4 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs uppercase tracking-wider transition border border-slate-700 flex items-center gap-1.5">
+                    <i class="fa-solid fa-chevron-left"></i>
+                    <span class="hidden sm:inline">Lượt Trước</span>
+                </button>
+
+                <button id="singleStartBtn" onclick="toggleSingleTimer()"
+                    class="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600 hover:from-emerald-300 hover:to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg shadow-emerald-500/30 transition transform active:scale-95 flex items-center gap-2">
+                    <i class="fa-solid fa-play text-base" id="singleStartIcon"></i>
+                    <span id="singleStartText">BẮT ĐẦU</span>
+                </button>
+
+                <button onclick="resetCurrentStage()"
+                    class="px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs uppercase tracking-wider transition border border-slate-700 flex items-center gap-1.5"
+                    title="Reset (R)">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>Reset</span>
+                </button>
+
+                <!-- Quick Adjust -->
+                <div class="flex items-center space-x-1 bg-slate-950 p-1 rounded-2xl border border-slate-800">
+                    <button onclick="adjustTime(-10)"
+                        class="px-2.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs transition"
+                        title="Trừ 10s">
+                        -10s
+                    </button>
+                    <button onclick="adjustTime(10)"
+                        class="px-2.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs transition"
+                        title="Cộng 10s">
+                        +10s
+                    </button>
+                </div>
+
+                <button onclick="nextStage()"
+                    class="px-4 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase tracking-wider transition border border-indigo-500 flex items-center gap-1.5">
+                    <span class="hidden sm:inline">Lượt Tiếp</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
+        </section>
+
+
+        <!-- VIEW 2: DUAL CHESS CLOCK CIRCULAR TIMERS (Stages 2A & 2B) -->
+        <section id="dualTimerView"
+            class="glass-panel p-4 md:p-6 rounded-3xl border border-indigo-900/80 flex-col items-center justify-between min-h-[460px] shadow-2xl relative hidden">
+
+            <!-- Chess Clock Header -->
+            <div
+                class="w-full flex flex-col md:flex-row items-center justify-between border-b border-indigo-950 pb-3 gap-2">
+                <div class="flex items-center space-x-3">
+                    <span id="dualStageBadge"
+                        class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                        LƯỢT THI
+                    </span>
+                    <h2 id="dualStageTitle" class="text-base md:text-xl font-bold text-white">
+                        Phần A: Đội B Đặt câu hỏi ➔ Đội A Trả Lời
+                    </h2>
+                </div>
+
+            </div>
+
+            <!-- DUAL CIRCULAR CLOCKS CONTAINER (SIDE BY SIDE) -->
+            <div class="w-full my-4 grid grid-cols-1 md:grid-cols-2 gap-6 items-center justify-items-center">
+
+                <!-- CIRCLE LEFT: QUESTIONER CLOCK (ĐỘI CHẤT VẤN - MAX 2 PHÚT) -->
+                <div id="cardQuestion" onclick="activateTurn('Q')"
+                    class="w-full p-5 rounded-3xl bg-slate-950/70 border-2 border-slate-800 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden cursor-pointer hover:border-slate-700">
+
+                    <!-- Header Status -->
+                    <div class="w-full flex items-center justify-between mb-2">
+                        <span id="nameQuestionTeam" class="font-extrabold text-sm md:text-base text-amber-400">ĐỘI B
+                            (ĐẶT CÂU HỎI)</span>
+                        <span id="statusBadgeQuestion"
+                            class="px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-slate-800 text-slate-400">
+                            DỪNG
+                        </span>
+                    </div>
+
+                    <!-- Smooth Circular Clock Question -->
+                    <div class="relative w-[190px] h-[190px] sm:w-[220px] sm:h-[220px] flex items-center justify-center rounded-full p-2 my-3 bg-cosmicBg/90 border-2 border-slate-800 transition-all duration-300"
+                        id="circleQuestionFrame">
+                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 200 200">
+                            <circle cx="100" cy="100" r="88" stroke="rgba(30, 41, 59, 0.8)" stroke-width="12"
+                                fill="transparent" />
+                            <circle id="progressRingQ" class="progress-ring-circle" cx="100" cy="100" r="88"
+                                stroke="#f59e0b" stroke-width="12" stroke-linecap="round" fill="transparent"
+                                stroke-dasharray="552.92" stroke-dashoffset="0" />
+                        </svg>
+
+                        <!-- Center Digital Time -->
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                            <div id="timerQuestion"
+                                class="font-digital text-4xl sm:text-5xl font-black text-amber-400 digital-glow-amber tracking-wider">
+                                02:00
+                            </div>
+                        </div>
+                    </div>
+                    <input type="text" id="speakerNamesQuestion" placeholder="Tên thành viên 1 - Tên thành viên 2"
+                        onclick="event.stopPropagation()"
+                        class="w-full mt-3 bg-slate-900/80 border border-amber-500/50 rounded-lg px-3 py-2 text-sm text-white text-center outline-none focus:border-amber-400" />
+                </div>
+
+
+                <!-- CIRCLE RIGHT: ANSWERER CLOCK (ĐỘI TRẢ LỜI - MAX 4 PHÚT) -->
+                <div id="cardAnswer" onclick="activateTurn('A')"
+                    class="w-full p-5 rounded-3xl bg-slate-950/70 border-2 border-slate-800 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden cursor-pointer hover:border-slate-700">
+
+                    <!-- Header Status -->
+                    <div class="w-full flex items-center justify-between mb-2">
+                        <span id="nameAnswerTeam" class="font-extrabold text-sm md:text-base text-cyan-400">ĐỘI A (TRẢ
+                            LỜI)</span>
+                        <span id="statusBadgeAnswer"
+                            class="px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-slate-800 text-slate-400">
+                            DỪNG
+                        </span>
+                    </div>
+
+                    <!-- Smooth Circular Clock Answer -->
+                    <div class="relative w-[190px] h-[190px] sm:w-[220px] sm:h-[220px] flex items-center justify-center rounded-full p-2 my-3 bg-cosmicBg/90 border-2 border-slate-800 transition-all duration-300"
+                        id="circleAnswerFrame">
+                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 200 200">
+                            <circle cx="100" cy="100" r="88" stroke="rgba(30, 41, 59, 0.8)" stroke-width="12"
+                                fill="transparent" />
+                            <circle id="progressRingA" class="progress-ring-circle" cx="100" cy="100" r="88"
+                                stroke="#06b6d4" stroke-width="12" stroke-linecap="round" fill="transparent"
+                                stroke-dasharray="552.92" stroke-dashoffset="0" />
+                        </svg>
+
+                        <!-- Center Digital Time -->
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                            <div id="timerAnswer"
+                                class="font-digital text-4xl sm:text-5xl font-black text-cyan-400 digital-glow-cyan tracking-wider">
+                                04:00
+                            </div>
+                        </div>
+                    </div>
+                    <input type="text" id="speakerNamesAnswer" placeholder="Tên thành viên 1 - Tên thành viên 2"
+                        onclick="event.stopPropagation()"
+                        class="w-full mt-3 bg-slate-900/80 border border-cyan-500/50 rounded-lg px-3 py-2 text-sm text-white text-center outline-none focus:border-cyan-400" />
+                </div>
+
+            </div>
+
+
+            <!-- Chess Clock Action Control Bar -->
+            <div class="w-full flex flex-wrap items-center justify-center gap-3 pt-3 border-t border-indigo-950">
+                <button onclick="prevStage()"
+                    class="px-4 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs uppercase tracking-wider transition border border-slate-700">
+                    <i class="fa-solid fa-chevron-left mr-1"></i>
+                    <span class="hidden sm:inline">Lượt Trước</span>
+                </button>
+
+                <!-- BIG CHESS CLOCK SWAP BUTTON -->
+                <button id="dualSwitchBtn" onclick="toggleDualTurn()"
+                    class="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 hover:from-amber-300 hover:to-yellow-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-amber-500/30 transition transform active:scale-95 flex items-center gap-2">
+                    <i class="fa-solid fa-arrows-rotate text-base" id="dualSwitchIcon"></i>
+                    <span id="dualSwitchText">CHUYỂN LƯỢT NÓI [SPACE]</span>
+                </button>
+
+                <button id="dualPauseBtn" onclick="pauseDualTimer()"
+                    class="px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold text-xs uppercase tracking-wider transition border border-slate-700 flex items-center gap-1.5">
+                    <i class="fa-solid fa-pause"></i>
+                    <span>Tạm Dừng Cả Hai</span>
+                </button>
+
+                <button onclick="resetCurrentStage()"
+                    class="px-4 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs uppercase tracking-wider transition border border-slate-700"
+                    title="Reset (R)">
+                    <i class="fa-solid fa-rotate-left mr-1"></i>
+                    <span>Reset</span>
+                </button>
+
+                <button onclick="nextStage()"
+                    class="px-4 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase tracking-wider transition border border-indigo-500">
+                    <span class="hidden sm:inline">Lượt Tiếp</span>
+                    <i class="fa-solid fa-chevron-right ml-1"></i>
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER / SHORTCUT HINTS -->
+    <footer class="glass-panel border-t border-indigo-900/60 px-4 py-2 text-xs text-slate-400 relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center space-x-3 overflow-x-auto text-[11px]">
+                <span class="font-bold text-amber-400"><i class="fa-solid fa-keyboard mr-1"></i>Phím tắt:</span>
+                <span><kbd
+                        class="px-1.5 py-0.5 bg-slate-900 rounded border border-slate-700 text-slate-200 font-mono">SPACE</kbd>
+                    Bắt đầu / Chuyển lượt Chess Clock</span>
+                <span><kbd
+                        class="px-1.5 py-0.5 bg-slate-900 rounded border border-slate-700 text-slate-200 font-mono">R</kbd>
+                    Reset</span>
+                <span><kbd class="px-1.5 py-0.5 bg-slate-900 rounded border border-slate-700 text-slate-200 font-mono">←
+                        / →</kbd> Chuyển lượt thi</span>
+                <span><kbd
+                        class="px-1.5 py-0.5 bg-slate-900 rounded border border-slate-700 text-slate-200 font-mono">F</kbd>
+                    Toàn màn hình</span>
+            </div>
+            <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                EVENGERS E-GAME • EVENTURE 2026
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- MODAL RULES & REGULATIONS -->
+    <div id="rulesModal"
+        class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+        <div
+            class="bg-cosmicCard border border-amber-500/40 rounded-3xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+
+            <!-- Modal Header -->
+            <div class="p-5 border-b border-indigo-900 flex items-center justify-between bg-slate-950/60">
+                <div class="flex items-center space-x-2.5">
+                    <i class="fa-solid fa-gavel text-amber-400 text-xl"></i>
+                    <h3 class="text-lg font-hero text-hero-gold tracking-wide">THỂ LỆ PHẦN THI PHẢN BIỆN</h3>
+                </div>
+                <button onclick="closeModal('rulesModal')" class="p-2 text-slate-400 hover:text-white transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6 overflow-y-auto space-y-4 text-xs md:text-sm text-slate-300 leading-relaxed">
+
+                <div class="p-4 rounded-2xl bg-indigo-950/60 border border-indigo-800">
+                    <h4 class="text-xs font-black uppercase text-amber-400 tracking-wider mb-1">Chủ đề chính</h4>
+                    <p class="text-slate-100 font-bold italic text-sm md:text-base">
+                        “Vì sao nên lựa chọn chương trình của đội chúng tôi thay vì chương trình của đội đối thủ?”
+                    </p>
+                    <p class="text-[11px] text-slate-400 mt-2">
+                        Tập trung bảo vệ phương án, làm rõ tính khả thi, hiệu quả và giá trị khác biệt. Thuyết phục Ban
+                        Giám khảo bằng lập luận thực tế.
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-black uppercase text-cyan-400 tracking-wider">Trình tự các lượt đếm giờ</h4>
+
+                    <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="font-bold text-cyan-400 uppercase">Lượt 1: Trình bày quan điểm (3 phút / đội)</div>
+                        <div class="text-slate-300 text-[11px]">Lần lượt 1A (Đội A - 3 phút) và 1B (Đội B - 3 phút).
+                            Trình bày luận điểm bảo vệ phương án (2 thành viên/đội).</div>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-amber-950/40 border border-amber-800/60">
+                        <div class="font-bold text-amber-300 uppercase flex items-center justify-between">
+                            <span>Lượt 2: Chất vấn & Trả lời</span>
+                            <span class="text-[10px] bg-amber-500/20 px-1.5 py-0.5 rounded text-amber-300">Đồng hồ song
+                                song</span>
+                        </div>
+                        <ul class="text-[11px] text-slate-300 mt-1.5 space-y-1 list-disc list-inside">
+                            <li><strong>Phần 2A:</strong> Đội B chất vấn (max 2 phút) ➔ Đội A trả lời (max 4 phút).</li>
+                            <li><strong>Phần 2B:</strong> Đội A chất vấn (max 2 phút) ➔ Đội B trả lời (max 4 phút).</li>
+                            <li><strong>Quy tắc Chess Clock:</strong> Hỏi đáp luân phiên. Khi đội hỏi dứt câu bấm chuyển
+                                lượt (hoặc phím Space), đồng hồ hỏi DỪNG NGAY và đồng hồ trả lời CHẠY NGAY. Thời gian
+                                trừ dần độc lập.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="font-bold text-emerald-400 uppercase">Lượt 3: Tổng kết & Bảo vệ phương án (3 phút /
+                            đội)</div>
+                        <div class="text-slate-300 text-[11px]">Lần lượt 3A (Đội A - 3 phút) và 3B (Đội B - 3 phút).
+                            Tổng kết các điểm quan trọng và khẳng định giá trị chương trình.</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 border-t border-indigo-900 bg-slate-950/60 flex justify-end">
+                <button onclick="closeModal('rulesModal')"
+                    class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider transition">
+                    Đã Hiểu Luật
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        /* ==========================================================================
+           STAGE DATA & APP STATE DEFINITION (6 STAGES: 1A, 1B, 2A, 2B, 3A, 3B)
+           ========================================================================== */
+        const STAGES = [
+            {
+                id: 0,
+                type: 'single',
+                name: '1A. Đội A',
+                title: 'Lượt 1A: Trình Bày Quan Điểm - Đội A',
+                speaker: '2 thành viên Đội A (03 phút)',
+                duration: 180,
+                teamRole: 'TEAM_A'
+            },
+            {
+                id: 1,
+                type: 'single',
+                name: '1B. Đội B',
+                title: 'Lượt 1B: Trình Bày Quan Điểm - Đội B',
+                speaker: '2 thành viên Đội B (03 phút)',
+                duration: 180,
+                teamRole: 'TEAM_B'
+            },
+            {
+                id: 2,
+                type: 'dual', // Chess clock stage
+                name: '2A. B hỏi ➔ A đáp',
+                title: 'Lượt 2A: Chất Vấn Phần A',
+                speaker: 'Đội B Chất Vấn (2m) • Đội A Trả Lời (4m)',
+                questionTeam: 'TEAM_B',
+                answerTeam: 'TEAM_A',
+                qDuration: 120, // 2 mins max
+                aDuration: 240  // 4 mins max
+            },
+            {
+                id: 3,
+                type: 'dual', // Chess clock stage
+                name: '2B. A hỏi ➔ B đáp',
+                title: 'Lượt 2B: Chất Vấn Phần B',
+                speaker: 'Đội A Chất Vấn (2m) • Đội B Trả Lời (4m)',
+                questionTeam: 'TEAM_A',
+                answerTeam: 'TEAM_B',
+                qDuration: 120, // 2 mins max
+                aDuration: 240  // 4 mins max
+            },
+            {
+                id: 4,
+                type: 'single',
+                name: '3A. Đội A',
+                title: 'Lượt 3A: Tổng Kết & Bảo Vệ Phương Án - Đội A',
+                speaker: '2 thành viên Đội A (03 phút)',
+                duration: 180,
+                teamRole: 'TEAM_A'
+            },
+            {
+                id: 5,
+                type: 'single',
+                name: '3B. Đội B',
+                title: 'Lượt 3B: Tổng Kết & Bảo Vệ Phương Án - Đội B',
+                speaker: '2 thành viên Đội B (03 phút)',
+                duration: 180,
+                teamRole: 'TEAM_B'
+            }
+        ];
+
+        // Circular Ring Constants
+        const CIRCLE_RADIUS_SINGLE = 115;
+        const CIRCLE_CIRCUMFERENCE_SINGLE = 2 * Math.PI * CIRCLE_RADIUS_SINGLE; // ~722.56
+
+        const CIRCLE_RADIUS_DUAL = 88;
+        const CIRCLE_CIRCUMFERENCE_DUAL = 2 * Math.PI * CIRCLE_RADIUS_DUAL; // ~552.92
+
+        // App Global State
+        let currentStageIndex = 0;
+        let teamAName = "Đội A - Horizon";
+        let teamBName = "Đội B - Spark";
+        let soundEnabled = true;
+
+        // Single Clock State
+        let singleTimeLeft = 180;
+        let singleMaxTime = 180;
+        let singleTimerInterval = null;
+        let singleIsRunning = false;
+
+        // Dual Chess Clock State
+        let qTimeLeft = 120;
+        let qMaxTime = 120;
+        let aTimeLeft = 240;
+        let aMaxTime = 240;
+        let activeSpeaker = null; // 'Q', 'A', or null
+        let dualTimerInterval = null;
+
+        // Web Audio Context
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) audioCtx = new AudioContext();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        /* ==========================================================================
+           AUDIO SYNTHESIZER SOUND GENERATOR
+           ========================================================================== */
+        function playTone(freq = 800, type = 'sine', duration = 0.15) {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start();
+                osc.stop(ctx.currentTime + duration);
+            } catch (e) {
+                console.error("Audio synth error:", e);
+            }
+        }
+
+        function playWarningBeep() {
+            if (!soundEnabled) return;
+            playTone(880, 'sine', 0.12);
+            setTimeout(() => playTone(1046.5, 'sine', 0.15), 160);
+        }
+
+        function playEndBuzzer() {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(110, ctx.currentTime + 1.2);
+
+                gain.gain.setValueAtTime(0.5, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.4);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start();
+                osc.stop(ctx.currentTime + 1.4);
+            } catch (e) {
+                console.error("Buzzer error:", e);
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('soundBtn');
+            const icon = document.getElementById('soundIcon');
+            if (soundEnabled) {
+                icon.className = "fa-solid fa-volume-high text-sm";
+                btn.className = "p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 transition border border-amber-500/40 shadow-lg";
+                playTone(800, 'sine', 0.1);
+            } else {
+                icon.className = "fa-solid fa-volume-xmark text-sm text-red-400";
+                btn.className = "p-2.5 rounded-xl bg-red-950/60 hover:bg-red-900/60 text-red-400 transition border border-red-800/60 shadow-lg";
+            }
+        }
+
+        /* ==========================================================================
+           INITIALIZATION & TEAM NAMES
+           ========================================================================== */
+        function initApp() {
+            updateTeamNames();
+            switchStage(0);
+        }
+
+        function updateTeamNames() {
+            const inputA = document.getElementById('teamAInput').value.trim();
+            const inputB = document.getElementById('teamBInput').value.trim();
+
+            teamAName = inputA || "Đội A";
+            teamBName = inputB || "Đội B";
+
+            document.getElementById('stepName-1A').textContent = `1A. ${teamAName}`;
+            document.getElementById('stepName-1B').textContent = `1B. ${teamBName}`;
+            document.getElementById('stepName-2A').textContent = `2A. ${teamBName} hỏi ➔ ${teamAName} đáp`;
+            document.getElementById('stepName-2B').textContent = `2B. ${teamAName} hỏi ➔ ${teamBName} đáp`;
+            document.getElementById('stepName-3A').textContent = `3A. ${teamAName}`;
+            document.getElementById('stepName-3B').textContent = `3B. ${teamBName}`;
+
+            renderStageView();
+        }
+
+
+        function formatTime(seconds) {
+            if (seconds <= 10 && seconds >= 0) {
+                return String(seconds);
+            }
+
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+
+            return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+
+        function switchStage(stageIdx) {
+            pauseSingleTimer();
+            pauseDualTimer();
+
+            currentStageIndex = stageIdx;
+            const stage = STAGES[currentStageIndex];
+
+            if (stage.type === 'single') {
+                singleTimeLeft = stage.duration;
+                singleMaxTime = stage.duration;
+            } else {
+                qTimeLeft = stage.qDuration;
+                qMaxTime = stage.qDuration;
+                aTimeLeft = stage.aDuration;
+                aMaxTime = stage.aDuration;
+                activeSpeaker = null;
+            }
+
+            // Update stepper active highlight
+            const stepBtns = document.querySelectorAll('.stage-step');
+            stepBtns.forEach((btn, idx) => {
+                if (idx === stageIdx) {
+                    btn.className = "stage-step flex-1 min-w-[110px] p-2.5 rounded-xl border-2 border-amber-400 bg-indigo-950 shadow-lg shadow-amber-500/20 text-left relative overflow-hidden transition";
+                } else {
+                    btn.className = "stage-step flex-1 min-w-[110px] p-2.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:bg-slate-800 transition text-left relative overflow-hidden group";
+                }
+            });
+
+            renderStageView();
+        }
+
+        function prevStage() {
+            if (currentStageIndex > 0) switchStage(currentStageIndex - 1);
+        }
+
+        function nextStage() {
+            if (currentStageIndex < STAGES.length - 1) switchStage(currentStageIndex + 1);
+        }
+
+        function resetCurrentStage() {
+            switchStage(currentStageIndex);
+        }
+
+        /* ==========================================================================
+           RENDER STAGE VIEWS
+           ========================================================================== */
+        const savedSpeakerNames = JSON.parse(
+            localStorage.getItem('evengersSpeakerNames') || '{}'
+        );
+
+        function saveSpeakerName(id, value) {
+            savedSpeakerNames[id] = value;
+            localStorage.setItem(
+                'evengersSpeakerNames',
+                JSON.stringify(savedSpeakerNames)
+            );
+        }
+
+        function renderStageView() {
+            const stage = STAGES[currentStageIndex];
+            const singleView = document.getElementById('singleTimerView');
+            const dualView = document.getElementById('dualTimerView');
+
+            if (stage.type === 'single') {
+                singleView.classList.remove('hidden');
+                singleView.classList.add('flex');
+                dualView.classList.add('hidden');
+                dualView.classList.remove('flex');
+
+                document.getElementById('singleStageTitle').textContent =
+                    getResolvedTitle(stage);
+
+                const speakerInfo = document.getElementById('singleStageSpeakerInfo');
+
+                if ([0, 1, 4, 5].includes(stage.id)) {
+                    const inputId = `speakerNames-${stage.id}`;
+                    const savedSpeakerNames = JSON.parse(
+                        localStorage.getItem('evengersSpeakerNames') || '{}'
+                    );
+
+                    speakerInfo.innerHTML = `
+                <input
+                    type="text"
+                    id="${inputId}"
+                    placeholder="Tên thành viên 1 - Tên thành viên 2"
+                    class="bg-slate-900/80 border border-cyan-500/50 rounded-lg px-3 py-2 text-sm text-white w-full max-w-xs text-center outline-none focus:border-cyan-400"
+                />
+            `;
+
+                    const input = document.getElementById(inputId);
+                    input.value = savedSpeakerNames[stage.id] || '';
+
+                    input.addEventListener('input', function () {
+                        savedSpeakerNames[stage.id] = this.value;
+
+                        localStorage.setItem(
+                            'evengersSpeakerNames',
+                            JSON.stringify(savedSpeakerNames)
+                        );
+                    });
+
+                    input.addEventListener('click', function (event) {
+                        event.stopPropagation();
+                    });
+                } else {
+                    speakerInfo.textContent = stage.speaker;
+                }
+
+                const badge = document.getElementById('singleActiveTeamBadge');
+
+                updateSingleTimerDisplay();
+
+            } else {
+                // CHESS CLOCK DUAL VIEW
+                singleView.classList.add('hidden');
+                singleView.classList.remove('flex');
+                dualView.classList.remove('hidden');
+                dualView.classList.add('flex');
+
+                document.getElementById('dualStageTitle').textContent =
+                    getResolvedTitle(stage);
+
+                const nameQ = stage.questionTeam === 'TEAM_A'
+                    ? teamAName : teamBName;
+
+                const nameA = stage.answerTeam === 'TEAM_A'
+                    ? teamAName : teamBName;
+
+                document.getElementById('nameQuestionTeam').textContent =
+                    `${nameQ} (ĐẶT CÂU HỎI)`;
+
+                document.getElementById('nameAnswerTeam').textContent =
+                    `${nameA} (TRẢ LỜI)`;
+
+                updateDualTimerDisplay();
+            }
+        }
+
+
+
+        function getResolvedTitle(stage) {
+            if (stage.id === 0 || stage.id === 4) return stage.title.replace('Đội A', teamAName);
+            if (stage.id === 1 || stage.id === 5) return stage.title.replace('Đội B', teamBName);
+            if (stage.id === 2) return `Lượt 2A: ${teamBName} Đặt câu hỏi ➔ ${teamAName} Trả Lời`;
+            if (stage.id === 3) return `Lượt 2B: ${teamAName} Đặt câu hỏi ➔ ${teamBName} Trả Lời`;
+            return stage.title;
+        }
+
+        /* ==========================================================================
+           SINGLE CIRCULAR CLOCK CONTROL LOGIC
+           ========================================================================== */
+        function toggleSingleTimer() {
+            getAudioContext();
+            if (singleIsRunning) {
+                pauseSingleTimer();
+            } else {
+                startSingleTimer();
+            }
+        }
+
+        function startSingleTimer() {
+            if (singleTimeLeft <= 0) return;
+            singleIsRunning = true;
+
+            const btn = document.getElementById('singleStartBtn');
+            const icon = document.getElementById('singleStartIcon');
+            const text = document.getElementById('singleStartText');
+
+            btn.className = "px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-500 to-amber-600 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg shadow-amber-500/30 transition transform active:scale-95 flex items-center gap-2";
+            icon.className = "fa-solid fa-pause text-base";
+            text.textContent = "TẠM DỪNG";
+
+            document.getElementById('singleStatusSubtext').textContent = "ĐANG ĐẾM GIỜ";
+
+            if (singleTimerInterval) clearInterval(singleTimerInterval);
+            singleTimerInterval = setInterval(() => {
+                singleTimeLeft--;
+                updateSingleTimerDisplay();
+
+                if (singleTimeLeft <= 10 && singleTimeLeft > 0) {
+                    if (singleTimeLeft === 1) {
+                        playTone(1600, 'sine', 0.25);
+                    } else {
+                        playTone(1200, 'sine', 0.08);
+                    }
+                }
+
+                if (singleTimeLeft <= 0) {
+                    singleTimeLeft = 0;
+                    pauseSingleTimer();
+                    playEndBuzzer();
+                    document.getElementById('singleStatusSubtext').textContent = "HẾT GIỜ!";
+                }
+            }, 1000);
+        }
+
+        function pauseSingleTimer() {
+            singleIsRunning = false;
+            if (singleTimerInterval) clearInterval(singleTimerInterval);
+
+            const btn = document.getElementById('singleStartBtn');
+            const icon = document.getElementById('singleStartIcon');
+            const text = document.getElementById('singleStartText');
+
+            if (btn && icon && text) {
+                btn.className = "px-8 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600 hover:from-emerald-300 hover:to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg shadow-emerald-500/30 transition transform active:scale-95 flex items-center gap-2";
+                icon.className = "fa-solid fa-play text-base";
+                text.textContent = "BẮT ĐẦU";
+            }
+
+            if (singleTimeLeft > 0) {
+                document.getElementById('singleStatusSubtext').textContent = "TẠM DỪNG";
+            }
+        }
+
+        function updateSingleTimerDisplay() {
+            const display = document.getElementById('singleTimerDisplay');
+            const ring = document.getElementById('singleProgressRing');
+            const frame = document.getElementById('singleCircleFrame');
+
+            display.textContent = formatTime(singleTimeLeft);
+
+            // Calculate SVG Circle Dashoffset
+            const pct = Math.max(0, Math.min(1, singleTimeLeft / singleMaxTime));
+            const offset = CIRCLE_CIRCUMFERENCE_SINGLE * (1 - pct);
+            ring.style.strokeDashoffset = offset;
+
+            // Near end style updates
+            if (singleTimeLeft <= 10) {
+                display.className = "font-digital text-5xl sm:text-6xl md:text-7xl font-black text-red-500 digital-glow-red tracking-wider animate-pulse";
+                ring.setAttribute('stroke', '#ef4444');
+                frame.className = "relative w-[240px] h-[240px] sm:w-[290px] sm:h-[290px] md:w-[330px] md:h-[330px] flex items-center justify-center rounded-full p-2 bg-cosmicBg/90 border-4 border-red-600 shadow-[0_0_60px_rgba(239,68,68,0.8)]";
+            } else if (singleTimeLeft <= 30) {
+                display.className = "font-digital text-5xl sm:text-6xl md:text-7xl font-black text-amber-400 digital-glow-amber tracking-wider";
+                ring.setAttribute('stroke', '#f59e0b');
+                frame.className = "relative w-[240px] h-[240px] sm:w-[290px] sm:h-[290px] md:w-[330px] md:h-[330px] flex items-center justify-center rounded-full p-2 bg-cosmicBg/90 border-4 border-amber-500 shadow-[0_0_50px_rgba(245,158,11,0.6)]";
+            } else {
+                const stage = STAGES[currentStageIndex];
+                if (stage.teamRole === 'TEAM_B') {
+                    display.className = "font-digital text-5xl sm:text-6xl md:text-7xl font-black text-pink-400 digital-glow-pink tracking-wider";
+                    ring.setAttribute('stroke', '#ec4899');
+                    frame.className = "relative w-[240px] h-[240px] sm:w-[290px] sm:h-[290px] md:w-[330px] md:h-[330px] flex items-center justify-center rounded-full p-2 bg-cosmicBg/90 border-4 border-pink-600 shadow-[0_0_50px_rgba(236,72,153,0.5)]";
+                } else {
+                    display.className = "font-digital text-5xl sm:text-6xl md:text-7xl font-black text-cyan-400 digital-glow-cyan tracking-wider";
+                    ring.setAttribute('stroke', '#06b6d4');
+                    frame.className = "relative w-[240px] h-[240px] sm:w-[290px] sm:h-[290px] md:w-[330px] md:h-[330px] flex items-center justify-center rounded-full p-2 bg-cosmicBg/90 border-4 border-cyan-600 shadow-[0_0_50px_rgba(6,182,212,0.5)]";
+                }
+            }
+        }
+
+        function adjustTime(seconds) {
+            const stage = STAGES[currentStageIndex];
+            if (stage.type === 'single') {
+                singleTimeLeft = Math.max(0, singleTimeLeft + seconds);
+                updateSingleTimerDisplay();
+            }
+        }
+
+        /* ==========================================================================
+           DUAL CIRCULAR CHESS CLOCK LOGIC
+           ========================================================================== */
+        function activateTurn(role) {
+            getAudioContext();
+            if (activeSpeaker === role && dualTimerInterval) {
+                pauseDualTimer();
+                return;
+            }
+
+            if (role === 'Q' && qTimeLeft <= 0) return;
+            if (role === 'A' && aTimeLeft <= 0) return;
+
+            activeSpeaker = role;
+            playTone(900, 'sine', 0.08);
+            startDualTimer();
+        }
+
+        function toggleDualTurn() {
+            getAudioContext();
+            if (activeSpeaker === 'Q') {
+                if (aTimeLeft > 0) activeSpeaker = 'A';
+                else pauseDualTimer();
+            } else {
+                if (qTimeLeft > 0) activeSpeaker = 'Q';
+                else pauseDualTimer();
+            }
+
+            if (activeSpeaker) {
+                playTone(1000, 'sine', 0.08);
+                startDualTimer();
+            }
+        }
+
+        function startDualTimer() {
+            if (!activeSpeaker) activeSpeaker = 'Q';
+
+            if (dualTimerInterval) clearInterval(dualTimerInterval);
+
+            const switchBtn = document.getElementById('dualSwitchBtn');
+            const switchIcon = document.getElementById('dualSwitchIcon');
+            const switchText = document.getElementById('dualSwitchText');
+
+            switchBtn.className = "px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-amber-500/40 transition transform active:scale-95 flex items-center gap-2";
+            switchIcon.className = "fa-solid fa-arrows-rotate text-base animate-spin";
+            switchText.textContent = activeSpeaker === 'Q' ? "ĐANG HỎI ➔ CHUYỂN TRẢ LỜI [SPACE]" : "ĐANG TRẢ LỜI ➔ CHUYỂN HỎI [SPACE]";
+
+            dualTimerInterval = setInterval(() => {
+                if (activeSpeaker === 'Q') {
+                    qTimeLeft--;
+                    if (qTimeLeft <= 10 && qTimeLeft > 0) {
+                        if (qTimeLeft === 1) {
+                            playTone(1600, 'sine', 0.25);
+                        } else {
+                            playTone(1200, 'sine', 0.08);
+                        }
+                    }
+                    if (qTimeLeft <= 0) {
+                        qTimeLeft = 0;
+                        playEndBuzzer();
+                        if (aTimeLeft > 0) activeSpeaker = 'A';
+                        else pauseDualTimer();
+                    }
+                } else if (activeSpeaker === 'A') {
+                    aTimeLeft--;
+                    if (aTimeLeft <= 10 && aTimeLeft > 0) {
+                        if (aTimeLeft === 1) {
+                            playTone(1600, 'sine', 0.25);
+                        } else {
+                            playTone(1200, 'sine', 0.08);
+                        }
+                    }
+                    if (aTimeLeft <= 0) {
+                        aTimeLeft = 0;
+                        playEndBuzzer();
+                        if (qTimeLeft > 0) activeSpeaker = 'Q';
+                        else pauseDualTimer();
+                    }
+                }
+
+                updateDualTimerDisplay();
+            }, 1000);
+
+            updateDualTimerDisplay();
+        }
+
+        function pauseDualTimer() {
+            activeSpeaker = null;
+            if (dualTimerInterval) clearInterval(dualTimerInterval);
+
+            const switchBtn = document.getElementById('dualSwitchBtn');
+            const switchIcon = document.getElementById('dualSwitchIcon');
+            const switchText = document.getElementById('dualSwitchText');
+
+            if (switchBtn && switchIcon && switchText) {
+                switchBtn.className = "px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-amber-500/30 transition transform active:scale-95 flex items-center gap-2";
+                switchIcon.className = "fa-solid fa-play text-base";
+                switchText.textContent = "CHUYỂN LƯỢT NÓI [SPACE]";
+            }
+
+            updateDualTimerDisplay();
+        }
+
+        function updateDualTimerDisplay() {
+            const cardQ = document.getElementById('cardQuestion');
+            const cardA = document.getElementById('cardAnswer');
+
+            const timerQ = document.getElementById('timerQuestion');
+            const timerA = document.getElementById('timerAnswer');
+
+            const ringQ = document.getElementById('progressRingQ');
+            const ringA = document.getElementById('progressRingA');
+
+            const frameQ = document.getElementById('circleQuestionFrame');
+            const frameA = document.getElementById('circleAnswerFrame');
+
+            const badgeQ = document.getElementById('statusBadgeQuestion');
+            const badgeA = document.getElementById('statusBadgeAnswer');
+
+            // Set formatted text
+            timerQ.textContent = formatTime(qTimeLeft);
+            timerA.textContent = formatTime(aTimeLeft);
+
+            // Set progress offset
+            const pctQ = Math.max(0, Math.min(1, qTimeLeft / qMaxTime));
+            ringQ.style.strokeDashoffset = CIRCLE_CIRCUMFERENCE_DUAL * (1 - pctQ);
+
+            const pctA = Math.max(0, Math.min(1, aTimeLeft / aMaxTime));
+            ringA.style.strokeDashoffset = CIRCLE_CIRCUMFERENCE_DUAL * (1 - pctA);
+
+            // Active Card Highlight
+            if (activeSpeaker === 'Q') {
+                cardQ.className = "w-full p-5 rounded-3xl bg-amber-950/40 border-2 border-amber-400 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden scale-[1.02] shadow-[0_0_35px_rgba(245,158,11,0.5)] z-10 cursor-pointer";
+                cardA.className = "w-full p-5 rounded-3xl bg-slate-950/60 border border-slate-800/80 opacity-50 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden cursor-pointer";
+
+                frameQ.className = "relative w-[190px] h-[190px] sm:w-[220px] sm:h-[220px] flex items-center justify-center rounded-full p-2 my-3 bg-cosmicBg/90 border-4 border-amber-400 shadow-[0_0_30px_rgba(245,158,11,0.6)] animate-pulse";
+                frameA.className = "relative w-[190px] h-[190px] sm:w-[220px] sm:h-[220px] flex items-center justify-center rounded-full p-2 my-3 bg-cosmicBg/90 border-2 border-slate-800";
+
+                badgeQ.className = "px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-amber-400 text-slate-950 shadow-md animate-pulse";
+                badgeQ.textContent = "ĐANG HỎI";
+
+                badgeA.className = "px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-slate-800 text-slate-400";
+                badgeA.textContent = "CHỜ";
+
+            } else if (activeSpeaker === 'A') {
+                cardA.className = "w-full p-5 rounded-3xl bg-cyan-950/40 border-2 border-cyan-400 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden scale-[1.02] shadow-[0_0_35px_rgba(6,182,212,0.5)] z-10 cursor-pointer";
+                cardQ.className = "w-full p-5 rounded-3xl bg-slate-950/60 border border-slate-800/80 opacity-50 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden cursor-pointer";
+
+                frameA.className = "relative w-[190px] h-[190px] sm:w-[220px] sm:h-[220px] flex items-center justify-center rounded-full p-2 my-3 bg-cosmicBg/90 border-4 border-cyan-400 shadow-[0_0_30px_rgba(6,182,212,0.6)] animate-pulse";
+                frameQ.className = "relative w-[190px] h-[190px] sm:w-[220px] sm:h-[220px] flex items-center justify-center rounded-full p-2 my-3 bg-cosmicBg/90 border-2 border-slate-800";
+
+                badgeA.className = "px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-cyan-400 text-slate-950 shadow-md animate-pulse";
+                badgeA.textContent = "ĐANG TRẢ LỜI";
+
+                badgeQ.className = "px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-slate-800 text-slate-400";
+                badgeQ.textContent = "CHỜ";
+
+            } else {
+                cardQ.className = "w-full p-5 rounded-3xl bg-slate-950/70 border-2 border-slate-800 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden cursor-pointer hover:border-slate-700";
+                cardA.className = "w-full p-5 rounded-3xl bg-slate-950/70 border-2 border-slate-800 flex flex-col items-center justify-between transition-all duration-300 relative overflow-hidden cursor-pointer hover:border-slate-700";
+
+                frameQ.className = "relative w-[190px] h-[190px] sm:w-[220px] sm:h-[220px] flex items-center justify-center rounded-full p-2 my-3 bg-cosmicBg/90 border-2 border-slate-800";
+                frameA.className = "relative w-[190px] h-[190px] sm:w-[220px] sm:h-[220px] flex items-center justify-center rounded-full p-2 my-3 bg-cosmicBg/90 border-2 border-slate-800";
+
+                badgeQ.className = "px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-slate-800 text-slate-400";
+                badgeQ.textContent = "DỪNG";
+
+                badgeA.className = "px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-slate-800 text-slate-400";
+                badgeA.textContent = "DỪNG";
+            }
+        }
+
+        /* ==========================================================================
+           KEYBOARD SHORTCUTS & UTILITIES
+           ========================================================================== */
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            const stage = STAGES[currentStageIndex];
+
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (stage.type === 'single') toggleSingleTimer();
+                else toggleDualTurn();
+            } else if (e.code === 'KeyR') {
+                e.preventDefault();
+                resetCurrentStage();
+            } else if (e.code === 'ArrowLeft') {
+                e.preventDefault();
+                prevStage();
+            } else if (e.code === 'ArrowRight') {
+                e.preventDefault();
+                nextStage();
+            } else if (e.code === 'KeyF') {
+                e.preventDefault();
+                toggleFullscreen();
+            }
+        });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.error(err));
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+            }
+        }
+
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.add('opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        // Initialize App on Window Load
+        window.onload = function () {
+            initApp();
+        };
+    </script>
+</body>
+
+</html>
